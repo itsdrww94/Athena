@@ -1,0 +1,37 @@
+{
+  "findings": [
+    {
+      "type": "email",
+      "value": "itsdrww@gmail.com",
+      "confidence": 0.9
+    },
+    {
+      "type": "phone",
+      "value": "6122052977",
+      "confidence": 0.9
+    },
+    {
+      "type": "email_breach",
+      "value": "itsdrww@gmail.com",
+      "breach_name": "Canva (Simulated)",
+      "tool": "hibp_check",
+      "severity": "medium",
+      "remediation": "Change password if reused.",
+      "confidence": 1.0
+    },
+    {
+      "type": "email_breach",
+      "value": "itsdrww@gmail.com",
+      "breach_name": "Twitter 2023 (Simulated)",
+      "tool": "hibp_check",
+      "severity": "low",
+      "remediation": "Enable 2FA.",
+      "confidence": 1.0
+    }
+  ],
+  "history": [
+    "breach_check:itsdrww@gmail.com"
+  ],
+  "timestamp": 1766905197.070186,
+  "target": "username: itsdrww, email: itsdrww@gmail.com, phone: 6122052977"
+}

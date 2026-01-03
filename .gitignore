@@ -1,0 +1,42 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env / secrets
+.env
+.env.*
+*.key
+*.pem
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build / logs / data
+dist/
+build/
+*.log
+data/
+outputs/
+
+# Large files
+*.msixbundle
+*.7z
+
+# Google OAuth tokens
+google_token.json
+credentials.json

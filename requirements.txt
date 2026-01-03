@@ -1,0 +1,66 @@
+# Core
+requests
+rich
+python-dotenv
+typer
+httpx
+prompt_toolkit
+supabase
+
+# AI/ML
+google-genai
+anthropic
+
+# Google Services
+google-auth-oauthlib
+google-api-python-client
+google-cloud-storage
+
+# Screen/Vision
+pyautogui
+pillow
+
+# Notion Integration
+notion-client
+
+# PDF/Document Processing
+pdfplumber
+
+# YouTube/News
+youtube-transcript-api
+feedparser
+
+# Web Scraping
+beautifulsoup4
+lxml
+
+# Reddit API
+praw
+
+# System Monitoring (medic.py)
+psutil
+
+# File System Watcher (organizer.py)
+watchdog
+
+# Browser Automation (web_surfer.py)
+playwright
+
+# Data Science (Deep Mind analysis)
+pandas
+numpy
+textblob
+ijson
+pytz
+
+# Network Scanning (net_guard.py)
+# Note: nmap must be installed separately via system package manager
+
+# Spotify Controller (dj_booth.py)
+spotipy
+
+# Archive Search (BM25 indexing)
+rank_bm25
+
+# Contracts
+pydantic

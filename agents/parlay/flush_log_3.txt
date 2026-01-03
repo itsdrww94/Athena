@@ -1,0 +1,19 @@
+☁️ HAKARI: Flushing Event Queue to Supabase...
+Traceback (most recent call last):
+  File "C:\Users\itsdr\OneDrive\project Athena\Athena_Project\agents\parlay\agent.py", line 756, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\itsdr\OneDrive\project Athena\Athena_Project\agents\parlay\agent.py", line 730, in main
+    result = asyncio.run(run_command(parsed.command, extra_args, image_path=parsed.image))
+  File "C:\Users\itsdr\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\itsdr\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\itsdr\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\itsdr\OneDrive\project Athena\Athena_Project\agents\parlay\agent.py", line 617, in run_command
+    from agents.parlay.supabase_client import get_client
+ModuleNotFoundError: No module named 'agents'

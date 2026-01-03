@@ -1,0 +1,6 @@
+# Requirements for Athena Cloud Analyst
+# Deploy to Google Cloud Functions
+
+functions-framework
+google-genai
+requests

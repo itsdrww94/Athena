@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "type": "username",
+      "value": "itsdrww",
+      "confidence": 0.9
+    }
+  ],
+  "history": [],
+  "timestamp": 1767281430.1164677,
+  "target": "itsdrww"
+}

@@ -1,0 +1,10 @@
+🎯 HAKARI: Evaluating bobby portis pts @ 14.5...
+
+==================================================
+🎰 HAKARI RESPONSE (Failsafe Mode)
+==================================================
+✅ Verdict: OVER
+📊 Projection: 15.3
+🎯 Confidence: 60.0%
+==================================================
+
