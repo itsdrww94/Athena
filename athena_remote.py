@@ -43,6 +43,40 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 # Security: Whitelist of allowed user IDs (only your ID)
 ALLOWED_USER_IDS = [TELEGRAM_CHAT_ID] if TELEGRAM_CHAT_ID else []
 
+# =============================================================================
+# NEW ORCHESTRATOR INTEGRATION (2025 Architecture)
+# =============================================================================
+NEW_ORCHESTRATOR_ENABLED = os.getenv("ATHENA_USE_NEW_ORCHESTRATOR", "0") == "1"
+
+async def try_new_orchestrator_async(user_input: str, user_id: str, interface: str = "telegram") -> Optional[str]:
+    """
+    Attempt to process input through the new orchestrator (async wrapper).
+    """
+    if not NEW_ORCHESTRATOR_ENABLED:
+        return None
+    
+    try:
+        # Run synchronous orchestrator in thread pool to avoid blocking async loop
+        from core.app import run_athena
+        import asyncio
+        from functools import partial
+        
+        loop = asyncio.get_running_loop()
+        response = await loop.run_in_executor(
+            None, 
+            partial(
+                run_athena, 
+                input_message=user_input, 
+                interface=interface, 
+                user_id=user_id,
+                session_id=f"tg_{user_id}"
+            )
+        )
+        return response
+    except Exception as e:
+        print(f"⚠️ New orchestrator error: {e}")
+        return None
+
 
 # =============================================================================
 # AGENT REGISTRY
@@ -306,6 +340,16 @@ class AthenaRemote:
         
         # Show typing indicator
         await self.telegram.send_typing_action(msg.chat_id)
+
+        # ============================================================
+        # NEW ORCHESTRATOR HOOK (2025 Architecture)
+        # ============================================================
+        if NEW_ORCHESTRATOR_ENABLED:
+            response = await try_new_orchestrator_async(text, msg.sender)
+            if response:
+                await self.telegram.send_text(response, msg.chat_id, parse_mode="Markdown")
+                return
+
         
         # Route command or chat
         if text.startswith("/"):

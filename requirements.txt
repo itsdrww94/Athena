@@ -10,6 +10,7 @@ supabase
 # AI/ML
 google-genai
 anthropic
+openai-agents
 
 # Google Services
 google-auth-oauthlib

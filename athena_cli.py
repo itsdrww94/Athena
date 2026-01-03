@@ -227,6 +227,40 @@ except ImportError as e:
     router = None
 
 # =============================================================================
+# NEW ORCHESTRATOR INTEGRATION (2025 Architecture)
+# =============================================================================
+# Set ATHENA_USE_NEW_ORCHESTRATOR=1 to enable the new unified orchestrator
+# This provides a gradual migration path while preserving existing functionality
+
+NEW_ORCHESTRATOR_ENABLED = os.getenv("ATHENA_USE_NEW_ORCHESTRATOR", "0") == "1"
+
+def try_new_orchestrator(user_input: str, interface: str = "cli") -> Optional[str]:
+    """
+    Attempt to process input through the new orchestrator.
+    Returns response if handled, None to fall back to legacy processing.
+    """
+    if not NEW_ORCHESTRATOR_ENABLED:
+        return None
+    
+    try:
+        from core.app import run_athena
+        response = run_athena(
+            input_message=user_input,
+            interface=interface,
+            user_id="default",
+            session_id="cli"
+        )
+        return response
+    except ImportError:
+        return None
+    except Exception as e:
+        console.print(f"[dim yellow]⚠ New orchestrator error: {e}[/dim yellow]")
+        return None
+
+if NEW_ORCHESTRATOR_ENABLED:
+    console.print("[bold green]🚀 New Orchestrator: ENABLED (ATHENA_USE_NEW_ORCHESTRATOR=1)[/bold green]")
+
+# =============================================================================
 # CONFIGURATION
 # =============================================================================
 
@@ -1184,7 +1218,7 @@ SYSTEM CONTEXT:
                         elif cmd == "/clear": cmd_clear()
                         elif cmd == "/exit": 
                             console.print("[bold red]Shutting down...[/bold red]")
-                            break
+                            sys.exit(0)
                         else:
                             execute_spoke_agent(cmd[1:], args)
                         continue
@@ -3620,6 +3654,18 @@ def main():
                     # Fallback standard prompt
                     console.print("[bold #BF40BF]ATHENA[/bold #BF40BF] [#800080]>[/#800080] ", end="")
                     user_input = input()
+                
+                # ============================================================
+                # NEW ORCHESTRATOR HOOK (2025 Architecture)
+                # ============================================================
+                # If new orchestrator is enabled, try it first
+                if NEW_ORCHESTRATOR_ENABLED:
+                    orchestrator_response = try_new_orchestrator(user_input)
+                    if orchestrator_response is not None:
+                        # Response handled by new orchestrator
+                        from rich.markdown import Markdown
+                        console.print(Markdown(orchestrator_response))
+                        continue  # Skip legacy processing
                 
                 # 2. Context Injection & Semantic Routing
                 # Only inject context for Chat, not Commands
